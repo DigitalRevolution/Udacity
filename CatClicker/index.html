@@ -1,0 +1,111 @@
+<html> 
+<head> 
+<title> 
+Cat Clicker
+</title> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head> 
+<body>
+<h1> Cat Clicker</h1> 
+
+<div>
+	<ul class = 'cat-menu'>
+	</ul> 
+</div> 
+<div class = 'cat-section'>
+<h3>Amber</h3><img data-num = '0' class = 'cat-photo' src = "./img/cat1.jpg"><h3>0</h3>
+</div> 
+
+<script> 
+
+$(function(){
+// Model 
+var catObj = [
+	{
+		'name' : 'Amber',
+		'img' : 'cat1.jpg',
+		'clicks' : 0
+	},
+	{
+		'name' : 'Blue',
+		'img' : 'cat2.jpg',
+		'clicks' : 0
+	},
+	{
+		'name' : 'Cyan',
+		'img' : 'cat3.jpg',
+		'clicks' : 0
+	},
+	{
+		'name' : 'Dusty',
+		'img' : 'cat4.jpg',
+		'clicks' : 0
+	},
+	{
+		'name' : 'Fucia',
+		'img' : 'cat5.jpg', 
+		'clicks' : 0
+	}
+];
+
+// View
+	for (var i = 0; i<catObj.length; i++){
+		$('.cat-menu').append(
+			'<li>' +
+			'<a class = "cat-selector" data-num = "' + i + '"href = "'+ i + '">' + catObj[i].name + '</a>' +
+			'</li>'
+	)};
+
+	function render(catNum) {
+		$('.cat-section').html(
+		'<h3>' + catObj[catNum].name + 
+		'</h3><img class = "cat-photo" data-num = "' + catNum + 
+		'" src = "./img/' + catObj[catNum].img + 
+		'"><h3>' + catObj[catNum].clicks + '</h3>'
+		); 
+	};
+
+	// Controler
+	function increment(catNum) {
+		catObj[catNum].clicks++; 
+		render(catNum); 
+	}
+
+	$('.cat-section').on('click', '.cat-photo', function() {
+		var catNum = $(this).data('num'); 
+		increment(catNum);
+	});
+
+	$('.cat-selector').click(function(e) {
+		e.preventDefault();
+		var catNum = $(this).attr('href');
+		increment(catNum); 
+	});
+}); 
+
+// EARLIER ASSIGNEMNTS (1 and 2)
+
+//var catArray = ['cat1.jpg','cat2.jpg','cat3.jpg','cat4.jpg','cat5.jpg'];
+//var count = 0; 
+
+// Function body
+// function catClicker(){
+// 	$('.cat-photo').remove(); 
+// 	count++; 
+// 	$('.cat-section').html(
+// 		'<h3>' + catObj[count].name + '</h3><img class = "cat-photo" src = "./img/' + catObj[count].img + '"></br><h3>' + count + '</h3>');
+// }
+
+// // Function logic
+// $('.cat-section').click(function(e) {
+// 	if (count < catObj.length - 1){
+// 	catClicker(); 
+// 	} else {
+// 	$('.cat-section').html(
+// 		'<p>I\'m Sorry, but the application has run out of cats.</p>');
+// 	}
+// });
+</script>
+
+</body> 
+</html> 
