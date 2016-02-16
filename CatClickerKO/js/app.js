@@ -1,10 +1,44 @@
-var Cat = function(){
+var initialCatList = [
+				{
+					'clickCount' : 0,
+					'name' : 'Amber',
+					'imgSrc' : './img/cat1.jpg',
+					'nicknames' : ['Orange'] 
 
-	this.clickCount = ko.observable(0); 
-	this.name = ko.observable('Tabby'); 
-	this.imgSrc = ko.observable('img/cat1.jpg'); 
-	this.imgAttribution = ko.observable('The Internet'); 
-	this.nicknames = ko.observableArray(['Garfield','Felix','Ookla']); 
+				},
+				{
+					'clickCount' : 0,
+					'name' : 'Blue',
+					'imgSrc' : './img/cat2.jpg',
+					'nicknames' : ['Azul'] 
+				},
+				{
+					'clickCount' : 0,
+					'name' : 'Cyan',
+					'imgSrc' : './img/cat3.jpg',
+					'nicknames' : ['Breen'] 
+				},
+				{
+					'clickCount' : 0,
+					'name' : 'Dusty',
+					'imgSrc' : './img/cat4.jpg',
+					'nicknames' : ['Brown'] 
+				},
+				{
+					'clickCount' : 0,
+					'name' : 'Fucia',
+					'img' : './img/cat5.jpg', 
+					'nicknames' : ['Indigo'] 
+				}
+			];
+
+var Cat = function(data){
+
+	this.clickCount = ko.observable(data.clickCount);
+	this.name = ko.observable(data.name); 
+	this.imgSrc = ko.observable(data.imgSrc); 
+	this.nicknames = ko.observableArray(data.nicknames); 
+
 	this.popularity = ko.computed(function(){
 		var count = this.clickCount();
 		if(count<11){return "Kitten"};
@@ -15,11 +49,18 @@ var Cat = function(){
 }
 
 var ViewModel = function() {
+	var that = this;
 
-	this.currentCat = ko.observable(new Cat()); 
+	this.catList = ko.observableArray([]); 
+
+	initialCatList.forEach(function(catItem){
+		that.catList.push( new Cat (catItem) ); 
+	});
+
+	this.currentCat = ko.observable( this.catList()[0] );
 
 	this.incrementCounter = function() {
-		this.currentCat().clickCount(this.currentCat().clickCount() + 1); 
+		that.currentCat().clickCount(that.currentCat().clickCount() + 1); 
 	}; 
 
 }
