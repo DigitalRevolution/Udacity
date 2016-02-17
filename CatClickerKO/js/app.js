@@ -27,7 +27,7 @@ var initialCatList = [
 				{
 					'clickCount' : 0,
 					'name' : 'Fucia',
-					'img' : './img/cat5.jpg', 
+					'imgSrc' : './img/cat5.jpg', 
 					'nicknames' : ['Indigo'] 
 				}
 			];
@@ -54,14 +54,18 @@ var ViewModel = function() {
 	this.catList = ko.observableArray([]); 
 
 	initialCatList.forEach(function(catItem){
-		that.catList.push( new Cat (catItem) ); 
+		that.catList.push( new Cat(catItem) ); 
 	});
 
-	this.currentCat = ko.observable( this.catList()[0] );
+	this.currentCat = ko.observable(this.catList()[0]);
+
+	this.clickedCat = function(clickedCat){
+		that.currentCat(clickedCat);
+	}
 
 	this.incrementCounter = function() {
-		that.currentCat().clickCount(that.currentCat().clickCount() + 1); 
-	}; 
+		this.clickCount(this.clickCount() + 1); 
+	};
 
 }
 
