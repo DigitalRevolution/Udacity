@@ -23,7 +23,8 @@ var app = app || {};
 			'click .destroy': 'clear',
 			'keypress .edit': 'updateOnEnter',
 			'keydown .edit': 'revertOnEscape',
-			'blur .edit': 'close'
+			'blur .edit': 'close',
+			'click .priority-btn':'addPriority'
 		},
 
 		// The TodoView listens for changes to its model, re-rendering. Since
@@ -128,6 +129,11 @@ var app = app || {};
 		// Remove the item, destroy the model from *localStorage* and delete its view.
 		clear: function () {
 			this.model.destroy();
+		}, 
+
+		addPriority: function() {
+			this.$el.toggleClass('priority');
+			console.log('You clicked the priority button'); 
 		}
 	});
 })(jQuery);
